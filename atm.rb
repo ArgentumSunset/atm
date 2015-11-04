@@ -1,19 +1,21 @@
 class Atm
 
-	attr_reader :users, :index
-	attr_accessor :users, :index
+	attr_reader :users, :adapter
+	attr_accessor :users, :adapter
 
-	def initialize(users)
+	def initialize(users,adapter)
 		@users = users
-		@index = 0
+		@adapter = adapter
 	end
 
-	def start
+	def start()
 		print "Welcome to Shithouse Bank's Automatic Teller Machine!\n"
+		print "Please input name.\n> "
+		name = $stdin.gets.chomp
 		print "Please input PIN number.\n> "
-		input = $stdin.gets.chomp
+		pin = $stdin.gets.chomp
 		users.each {|user| 
-			if input.to_i == user.pin
+			if pin.to_i == user.pin && name == user.name
 				operate(user)
 		end
 		}
@@ -31,9 +33,9 @@ What would you like to do today?
 		3: Quick Cash
 		4: Exit
 
-> 
-			"""
-			option = $stdin.gets.chomp.to_i
+		""" 
+		print "> "
+option = $stdin.gets.chomp.to_i
 			if option == 1
 				current.deposit
 			elsif option == 2
@@ -42,8 +44,9 @@ What would you like to do today?
 				current.quickcash
 			elsif option == 4
 				print "Goodbye!"
+				return
 			else
-				print "'#{option}' was not an applicable option. Restarting...\n\n"
+				print "That was not an applicable option. Restarting...\n\n"
 				start
 			end
 	end

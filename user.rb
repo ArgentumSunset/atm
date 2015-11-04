@@ -9,12 +9,19 @@ class User
 		@balance = balance
 	end
 
-	def deposit
+	def deposit(amount)
+		balance += amount
+		confirm_message = "You have deposited #{amount}.\nYour new balance is $#{balance}.\nIs this wrong?"
+		confirm
 	end
 
 	def withdraw
 	end
 
 	def quickcash
+	end
+
+	def confirm
+		
 	end
 end
