@@ -1,19 +1,16 @@
 require "gosu"
-
 require_relative "user"
 require_relative "atm"
 require_relative "adapter"
-require_relative "console"
-require_relative "gui"
 
 users = []
 
 is_testing = ARGV.first
 
 if is_testing
-	adapter = ConsoleAdapter.new(true)
+	adapter = Adapter.new
 else
-	adapter = GuiAdapter.new(false)
+	adapter = Adapter.new
 	adapter.show_window
 end
 
@@ -25,5 +22,3 @@ lines.each{|line|
 }
 
 atm = Atm.new(users,adapter)
-
-# atm.start

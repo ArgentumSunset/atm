@@ -1,22 +1,24 @@
-require_relative "adapter"
+class Window < Gosu::Window
 
-class GuiAdapter < Adapter
-
-	attr_accessor :color
-	attr_reader :color
+	WIDTH = 640
+  HEIGHT = 400
 
 	def initialize
+    super WIDTH, HEIGHT
+		self.caption = "BANK MURDER"
+
+		@font = Gosu::Font.new(20)
 	end
 
-	def show_window
-		window = Gosu::Window.new(640, 400, false, 10.0)
-		draw_atm
-		window.show
+	def say(message)
+		@font.draw(message, 10, 10, ZOrder::UI, 1.0, 1.0, 0xff_ffffff)
 	end
 
-	def draw_atm
-		draw_rec(20,20,160,100,Gosu::Color.new(0xff_ff0000))
+	def draw 
+		draw_rec(20,20,160,100,Gosu::Color.new(0xff_ffffff))
 	end
+
+	private
 
 	def draw_rec(x,y,height,width,color)
 		Gosu.draw_line(x, y, color, x + width, y, color, 1)
@@ -24,4 +26,5 @@ class GuiAdapter < Adapter
 		Gosu.draw_line(x + width, y + length, color, x, y + length, color, 1)
 		Gosu.draw_line(x, y + length, color, x, y, color, 1)
 	end
+
 end

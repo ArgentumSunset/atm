@@ -9,7 +9,7 @@ class Atm
 	end
 
 	def start()
-		print "Welcome to Shithouse Bank's Automatic Teller Machine!\n"
+		print "Welcome to Craphouse Bank's Automatic Teller Machine!\n"
 		print "Please input name.\n> "
 		name = $stdin.gets.chomp
 		print "Please input PIN number.\n> "
