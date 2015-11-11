@@ -1,14 +1,14 @@
 class Atm
 
-	attr_reader :users, :adapter
-	attr_accessor :users, :adapter
+	attr_reader :users
+	attr_accessor :users
 
-	def initialize(users,adapter)
+	def initialize(users,is_testing)
 		@users = users
-		@adapter = adapter
+		is_testing ? @is_testing = true : @is_testing = false
 	end
 
-	def start()
+	def start
 		print "Welcome to Craphouse Bank's Automatic Teller Machine!\n"
 		print "Please input name.\n> "
 		name = $stdin.gets.chomp
@@ -17,17 +17,21 @@ class Atm
 		users.each {|user| 
 			if pin.to_i == user.pin && name == user.name
 				operate(user)
-		end
+			end
 		}
 	end
 
 	def operate(current)
 		print "Glad to see you, #{current.name}! How are you today?\n> "
 			condition = $stdin.gets.chomp
+			puts "I am glad to see you are #{condition.downcase} today!"
+			options(current)
+		end
+
+		def options(current)
 			puts """
-I am glad to see you are #{condition} today!
-You have #{current.balance} in your account.
-What would you like to do today?
+	You have $#{current.balance} in your account.
+	What would you like to do today?
 		1: Deposit
 		2: Withdraw
 		3: Quick Cash
@@ -35,11 +39,11 @@ What would you like to do today?
 
 		""" 
 		print "> "
-option = $stdin.gets.chomp.to_i
+			option = $stdin.gets.chomp.to_i
 			if option == 1
-				current.deposit
+				current.change_balance("deposit")
 			elsif option == 2
-				current.withdraw
+				current.change_balance("withdraw")
 			elsif option == 3
 				current.quickcash
 			elsif option == 4
@@ -49,5 +53,6 @@ option = $stdin.gets.chomp.to_i
 				print "That was not an applicable option. Restarting...\n\n"
 				start
 			end
-	end
+		end
+
 end
