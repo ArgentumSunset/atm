@@ -17,7 +17,7 @@ data = File.read('users.txt')
 lines = data.split("\n")
 lines.each{|line| 
 	line = line.split(',')
-	users.push(User.new(line[0], line[1].to_i, line[2].to_i,atm)) # name, pin, balance
+	users.push(User.new(line[0], line[1].to_i, line[2].to_i)) # name, pin, balance
 }
 
 atm.start
